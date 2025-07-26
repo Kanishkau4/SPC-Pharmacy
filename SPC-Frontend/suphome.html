@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>State Pharmaceutical Cooperation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --primary-color: #1a5f7a;
+            --secondary-color: #2d9cdb;
+            --accent-color: #27ae60;
+            --light-gray: #f7f9fc;
+            --dark-gray: #2c3e50;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: rgba(26, 95, 122, 0.95);
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 0.5rem 1rem;
+            background-color: rgba(26, 95, 122, 0.98);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            color: var(--accent-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(26, 95, 122, 0.7), rgba(26, 95, 122, 0.8)),
+                        url('Images/hero.jpeg');
+            min-height: 100vh;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 1rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s forwards 0.5s;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+
+        .cta-primary {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .cta-primary:hover {
+            background-color: #219653;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+        }
+
+        .cta-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .cta-secondary:hover {
+            background-color: white;
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 4rem 1rem;
+            background-color: white;
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s forwards;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--dark-gray);
+            font-size: 1.1rem;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 1rem;
+            background-color: var(--light-gray);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            color: var(--dark-gray);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: white;
+            padding: 3rem 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-color: var(--secondary-color);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card i {
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .feature-card p {
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+
+        /* Process Section */
+        .process {
+            padding: 6rem 1rem;
+            background-color: white;
+        }
+
+        .process-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .process-step {
+            text-align: center;
+            position: relative;
+        }
+
+        .process-step::after {
+            content: '';
+            position: absolute;
+            top: 30%;
+            right: -1.5rem;
+            width: 3rem;
+            height: 2px;
+            background-color: var(--secondary-color);
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .process-step:not(:last-child)::after {
+                display: block;
+            }
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1.5rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 6rem 1rem;
+            background-color: var(--light-gray);
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 4rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-item i {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-gray);
+            color: white;
+            padding: 4rem 1rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section ul li a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section ul li a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--primary-color);
+                padding: 1rem;
+            }
+        }
+
+        /* Accessibility Improvements */
+        :focus {
+            outline: 3px solid var(--accent-color);
+            outline-offset: 2px;
+        }
+
+        /* Loader Screen Styles */
+        .loader-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--primary-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 1;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .loader-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .absCenter {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .loaderPill {
+            text-align: center;
+        }
+
+        .loaderPill-anim {
+            height: 160px;
+        }
+
+        .loaderPill-anim-bounce {
+            animation: loaderPillBounce 1800ms linear infinite;
+        }
+
+        .loaderPill-anim-flop {
+            transform-origin: 50% 50%;
+            animation: loaderPillFlop 1800ms linear infinite;
+        }
+
+        .loaderPill-pill {
+            display: inline-block;
+            box-sizing: border-box;
+            width: 80px;
+            height: 30px;
+            border-radius: 15px;
+            border: 1px solid var(--accent-color);
+            background-image: linear-gradient(to right, var(--accent-color) 50%, #ffffff 50%);
+        }
+
+        .loaderPill-floor {
+            display: block;
+            text-align: center;
+        }
+
+        .loaderPill-floor-shadow {
+            display: inline-block;
+            width: 70px;
+            height: 7px;
+            border-radius: 50%;
+            background-color: rgba(39, 174, 96, 0.26); /* Adjusted to match your theme */
+            transform: translateY(-15px);
+            animation: loaderPillScale 1800ms linear infinite;
+        }
+
+        .loaderPill-text {
+            font-weight: bold;
+            color: var(--accent-color);
+            text-transform: uppercase;
+        }
+
+        @keyframes loaderPillBounce {
+            0% {
+                transform: translateY(123px);
+                animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            }
+            25% {
+                transform: translateY(40px);
+                animation-timing-function: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+            }
+            50% {
+                transform: translateY(120px);
+                animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            }
+            75% {
+                transform: translateY(20px);
+                animation-timing-function: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+            }
+            100% {
+                transform: translateY(120px);
+            }
+        }
+
+        @keyframes loaderPillFlop {
+            0% {
+                transform: rotate(0);
+            }
+            25% {
+                transform: rotate(90deg);
+            }
+            50% {
+                transform: rotate(180deg);
+            }
+            75% {
+                transform: rotate(450deg);
+            }
+            100% {
+                transform: rotate(720deg);
+            }
+        }
+
+        @keyframes loaderPillScale {
+            0% {
+                transform: translateY(-15px) scale(1, 1);
+                animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            }
+            25% {
+                transform: translateY(-15px) scale(0.7, 1);
+                animation-timing-function: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+            }
+            50% {
+                transform: translateY(-15px) scale(1, 1);
+                animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            }
+            75% {
+                transform: translateY(-15px) scale(0.6, 1);
+                animation-timing-function: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+            }
+            100% {
+                transform: translateY(-15px) scale(1, 1);
+            }
+        }
+    </style>
+</head>
+<body>
+     <!-- Loader Screen -->
+     <div class="loader-screen">
+        <div class="absCenter">
+            <div class="loaderPill">
+                <div class="loaderPill-anim">
+                    <div class="loaderPill-anim-bounce">
+                        <div class="loaderPill-anim-flop">
+                            <div class="loaderPill-pill"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="loaderPill-floor">
+                    <div class="loaderPill-floor-shadow"></div>
+                </div>
+                <div class="loaderPill-text">Loading...</div>
+            </div>
+        </div>
+    </div>
+    <header>
+        <nav>
+            <div class="logo">
+                <i class="fas fa-clinic-medical"></i>
+                <span>SPC Staff</span>
+            </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links">
+                <a href="suphome.html">Home</a>
+                <a href="features.html">Features</a>
+                <a href="how-it-works.html">How It Works</a>
+                <a href="#supplier">Supplier Portal</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Transforming Pharmaceutical Distribution</h1>
+            <p>Join SPC's innovative digital ecosystem connecting manufacturers, suppliers, and pharmacies for efficient pharmaceutical distribution across the nation.</p>
+            <div class="cta-buttons">
+                <a href="supregister.php" class="cta-button cta-primary">Register as Supplier</a>
+                <a href="ph-reg.php" class="cta-button cta-secondary">Pharmacy</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-number" data-target="50">0</div>
+                <div class="stat-label">Registered Suppliers</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" data-target="100">0</div>
+                <div class="stat-label">Connected Pharmacies</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" data-target="5">0</div>
+                <div class="stat-label">Manufacturing Plants</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">System Availability</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="section-title">
+            <h2>Our Digital Solutions</h2>
+            <p>Streamlined processes and integrated systems for efficient pharmaceutical distribution</p>
+        </div>
+        <div class="features-container">
+            <div class="feature-card">
+                <i class="fas fa-user-plus"></i>
+                <h3>Online Supplier Registration</h3>
+                <p>Quick and easy registration process for pharmaceutical suppliers through our web portal or main branches. Join our network of verified suppliers and expand your reach.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-warehouse"></i>
+                <h3>Inventory Management</h3>
+                <p>Real-time stock updates and warehouse management system integrated with manufacturing plants. Monitor stock levels and manage inventory efficiently.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-shopping-cart"></i>
+                <h3>Digital Ordering System</h3>
+                <p>Seamless online ordering system for pharmacies with real-time stock availability. Place and track orders with ease through our intuitive interface.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="process" id="process">
+        <div class="section-title">
+            <h2>How It Works</h2>
+            <p>Simple steps to join our pharmaceutical distribution network</p>
+        </div>
+        <div class="process-container">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <h3>Register</h3>
+                <p>Complete the online registration form and submit required documentation</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <h3>Verification</h3>
+                <p>Our team verifies your credentials and approves your application</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <h3>Integration</h3>
+                <p>Get access to our digital platform and start managing your inventory</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">4</div>
+                <h3>Distribution</h3>
+                <p>Begin participating in our nationwide pharmaceutical distribution network</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="section-title">
+            <h2>Contact Us</h2>
+            <p>Get in touch with our support team for any queries</p>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <h3>Phone</h3>
+                        <p>+1 (555) 123-4567</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <h3>Email</h3>
+                        <p>support@spc-pharma.com</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <h3>Address</h3>
+                        <p>123 Pharma Street, Medical District, City, State 12345</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>About SPC</h4>
+                <ul>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#careers">Careers</a></li>
+                    <li><a href="#news">News</a></li>
+                    <li><a href="#partners">Partners</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#documentation">Documentation</a></li>
+                    <li><a href="#guidelines">Guidelines</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#support">Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#terms">Terms of Service</a></li>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                    <li><a href="#compliance">Compliance</a></li>
+                    <li><a href="#security">Security</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 State Pharmaceutical Cooperation. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+
+        // Hide loader when the page is fully loaded
+        window.addEventListener('load', function() {
+        const loaderScreen = document.querySelector('.loader-screen');
+
+        // Keep the loader visible for 5 seconds (5000ms)
+        setTimeout(() => {
+            loaderScreen.classList.add('hidden');
+
+            // Optional: Remove the loader from the DOM after the transition
+            setTimeout(() => {
+                loaderScreen.remove();
+            }, 500); // Match this duration with the CSS transition duration
+        }, 3000); // 3 seconds delay before hiding the loader
+    });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Animated counter for stats
+        const stats = document.querySelectorAll('.stat-number');
+
+        const animate = (element, target) => {
+            const value = parseFloat(target);
+            const duration = 2000;
+            const step = (value * 20) / duration;
+            let current = 0;
+
+            const counter = setInterval(() => {
+                current += step;
+                if (current >= value) {
+                    // Add the plus sign after the number
+                    element.textContent = target.includes('.') 
+                        ? value.toFixed(1) + '+' 
+                        : Math.floor(value).toLocaleString() + '+';
+                    clearInterval(counter);
+                } else {
+                    // Add the plus sign during the animation
+                    element.textContent = target.includes('.') 
+                        ? current.toFixed(1) + '+' 
+                        : Math.floor(current).toLocaleString() + '+';
+                }
+            }, 20);
+        };
+
+        // Intersection Observer for animation trigger
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = entry.target.getAttribute('data-target');
+                    animate(entry.target, target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        stats.forEach(stat => observer.observe(stat));
+
+        // Add this JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile Menu Toggle
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            menuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+
+            // Header Scroll Effect
+            window.addEventListener('scroll', () => {
+                const header = document.querySelector('header');
+                if (window.scrollY > 100) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
