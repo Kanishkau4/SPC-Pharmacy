@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPC - Features</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Same styles as main page -->
+    <style>
+        /* Copy all styles from main page */
+        /* Additional styles for features page */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --primary-color: #1a5f7a;
+            --secondary-color: #2d9cdb;
+            --accent-color: #27ae60;
+            --light-gray: #f7f9fc;
+            --dark-gray: #2c3e50;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: rgba(26, 95, 122, 0.95);
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 0.5rem 1rem;
+            background-color: rgba(26, 95, 122, 0.98);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            color: var(--accent-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .hero {
+            background: linear-gradient(rgba(26, 95, 122, 0.9), rgba(26, 95, 122, 0.95)),
+                        url('Images/features.jpeg');
+            min-height: 100vh;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 1rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s forwards 0.5s;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+        }
+
+        .feature-detail {
+            padding: 4rem 1rem;
+            background-color: white;
+        }
+        
+        .feature-detail-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 4rem;
+        }
+        
+        .feature-detail-item {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            align-items: center;
+            padding: 2rem;
+            background-color: var(--light-gray);
+            border-radius: 15px;
+        }
+        
+        .feature-detail-content h3 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-detail-content ul {
+            list-style: none;
+            margin: 1rem 0;
+        }
+        
+        .feature-detail-content ul li {
+            margin: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .feature-detail-content ul li:before {
+            content: "•";
+            color: var(--secondary-color);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .feature-image {
+            background-color: #f0f0f0;
+            height: 300px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+                /* Footer */
+                footer {
+            background-color: var(--dark-gray);
+            color: white;
+            padding: 4rem 1rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section ul li a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section ul li a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- Same header as main page -->
+    <header>
+        <nav>
+            <div class="logo">
+                <i class="fas fa-clinic-medical"></i>
+                <span>SPC</span>
+            </div>
+            <div class="nav-links">
+                <a href="suphome.html">Home</a>
+                <a href="features.html">Features</a>
+                <a href="how-it-works.html">How It Works</a>
+                <a href="#supplier">Supplier Portal</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero" style="min-height: 60vh;">
+        <div class="hero-content">
+            <h1>Our Features & Solutions</h1>
+            <p>Discover how our comprehensive digital solutions can transform your pharmaceutical operations</p>
+        </div>
+    </section>
+
+    <section class="feature-detail">
+        <div class="feature-detail-container">
+            <div class="feature-detail-item">
+                <div class="feature-detail-content">
+                    <h3>Advanced Supplier Management</h3>
+                    <p>Our comprehensive supplier management system streamlines the entire process from registration to ongoing operations.</p>
+                    <ul>
+                        <li>Digital onboarding and documentation</li>
+                        <li>Automated verification processes</li>
+                        <li>Real-time performance analytics</li>
+                        <li>Integrated compliance monitoring</li>
+                        <li>Supplier rating system</li>
+                    </ul>
+                </div>
+                <div class="feature-image">
+                    <img src="Images/sup1.jpeg" alt="Supplier Management" />
+                </div>
+            </div>
+
+            <div class="feature-detail-item">
+                <div class="feature-image">
+                    <img src="Images/inventory.jpg" alt="Inventory System" />
+                </div>
+                <div class="feature-detail-content">
+                    <h3>Smart Inventory Control</h3>
+                    <p>Keep track of your pharmaceutical inventory with our intelligent management system.</p>
+                    <ul>
+                        <li>Real-time stock monitoring</li>
+                        <li>Automated reordering system</li>
+                        <li>Expiry date tracking</li>
+                        <li>Batch number management</li>
+                        <li>Temperature monitoring integration</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="feature-detail-item">
+                <div class="feature-detail-content">
+                    <h3>Distribution Network</h3>
+                    <p>Optimize your distribution with our nationwide network and smart routing system.</p>
+                    <ul>
+                        <li>Route optimization</li>
+                        <li>Real-time delivery tracking</li>
+                        <li>Temperature-controlled transport</li>
+                        <li>Digital proof of delivery</li>
+                        <li>Automated dispatch system</li>
+                    </ul>
+                </div>
+                <div class="feature-image">
+                    <img src="Images/delivery.jpeg" alt="Distribution Network" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Same footer as main page -->
+    <!-- Same script as main page -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>About SPC</h4>
+                <ul>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#careers">Careers</a></li>
+                    <li><a href="#news">News</a></li>
+                    <li><a href="#partners">Partners</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#documentation">Documentation</a></li>
+                    <li><a href="#guidelines">Guidelines</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#support">Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#terms">Terms of Service</a></li>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                    <li><a href="#compliance">Compliance</a></li>
+                    <li><a href="#security">Security</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 State Pharmaceutical Cooperation. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
